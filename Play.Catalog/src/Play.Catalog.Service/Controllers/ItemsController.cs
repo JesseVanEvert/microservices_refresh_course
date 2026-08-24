@@ -19,5 +19,12 @@ namespace Play.Catalog.Service.Controllers
         {
             return items;
         }
+
+        [HttpGet("{id}")]
+        public ItemDto GetById(Guid id)
+        {
+            var item = items.SingleOrDefault(item => item.Id == id) ?? throw new Exception("Item not found");
+            return item;
+        }
     }
 }
