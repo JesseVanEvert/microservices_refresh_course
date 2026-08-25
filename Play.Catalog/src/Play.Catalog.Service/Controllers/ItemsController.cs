@@ -67,6 +67,12 @@ namespace Play.Catalog.Service.Controllers
         public IActionResult DeleteItem(Guid id)
         {
             var index = items.FindIndex(item => item.Id == id);
+
+            if (index < 0)
+            {
+                return NotFound();
+            }
+
             items.RemoveAt(index);
 
             return NoContent();
