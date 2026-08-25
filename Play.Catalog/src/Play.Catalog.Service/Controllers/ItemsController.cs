@@ -26,5 +26,13 @@ namespace Play.Catalog.Service.Controllers
             var item = items.SingleOrDefault(item => item.Id == id) ?? throw new Exception("Item not found");
             return item;
         }
+
+        [HttpPost]
+        public ActionResult<ItemDto> CreateItem(CreateItemDto itemDto)
+        {
+            var item = new ItemDto(Guid.NewGuid(), itemDto.Name, itemDto.Description, itemDto.Price, DateTimeOffset.UtcNow);
+            items.Add(item);
+            return CreatedAtAction(nameof(GetById), new { id = item.Id }, item);
+        }
     }
 }
